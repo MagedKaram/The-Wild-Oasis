@@ -16,13 +16,23 @@ const StyleAppLayout = styled.div`
   height: 100vh;
 `;
 
+const ContainerStyle = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+`;
+
 const AppLayout = () => {
   return (
     <StyleAppLayout>
       <Header />
       <Sidebar />
       <Main>
-        <Outlet />
+        <ContainerStyle>
+          <Outlet />
+        </ContainerStyle>
       </Main>
     </StyleAppLayout>
   );
