@@ -14,6 +14,7 @@ import Users from "./pages/Users";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import { Toaster } from "react-hot-toast";
+import styled from "styled-components";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,7 +44,7 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Toaster
-          position="bottom-right"
+          position="top-center"
           gutter={12}
           containerStyle={{ margin: "8px" }}
           toastOptions={{
