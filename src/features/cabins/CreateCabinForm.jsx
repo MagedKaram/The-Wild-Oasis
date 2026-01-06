@@ -65,7 +65,7 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
@@ -78,6 +78,7 @@ function CreateCabinForm() {
           type="text"
           id="name"
           autoComplete="on"
+          disabled={isCreated}
           {...register("name", {
             required: "Cabin name is required",
           })}
@@ -87,6 +88,7 @@ function CreateCabinForm() {
         <Input
           type="number"
           id="maxCapacity"
+          disabled={isCreated}
           {...register("maxCapacity", {
             required: "Maximum capacity is required",
             min: { value: 1, message: "Minimum capacity is 1" },
@@ -98,9 +100,14 @@ function CreateCabinForm() {
         <Input
           type="number"
           id="regularPrice"
+          disabled={isCreated}
           {...register("regularPrice", {
             required: "Regular price is required",
-            min: { value: 0, message: "Price must be non-negative" },
+            valueAsNumber: true,
+            min: {
+              value: 0,
+              message: "Price must be non-negative",
+            },
           })}
         />
       </FormRowEle>
@@ -109,14 +116,17 @@ function CreateCabinForm() {
         <Input
           type="number"
           id="discount"
+          disabled={isCreated}
           defaultValue={0}
           {...register("discount", {
+            valueAsNumber: true,
             validate: (value) =>
               value <= getValues().regularPrice ||
               "discount must be less than regular price",
           })}
         />
       </FormRowEle>
+
       <FormRowEle
         label="Description for website"
         error={errors?.description?.message}
@@ -124,6 +134,7 @@ function CreateCabinForm() {
         <Textarea
           type="text"
           id="description"
+          disabled={isCreated}
           defaultValue=""
           {...register("description", {
             required: "Description is required",
@@ -132,7 +143,14 @@ function CreateCabinForm() {
       </FormRowEle>
 
       <FormRowEle label="Image" error={errors?.image?.message}>
-        <FileInput id="image" accept="image/*" />
+        <FileInput
+          id="image"
+          accept="image/*"
+          {...register("image", {
+            required: "Image is required",
+          })}
+          disabled={isCreated}
+        />
       </FormRowEle>
 
       <FormRow>
