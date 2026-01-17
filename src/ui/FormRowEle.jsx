@@ -39,7 +39,7 @@ const Error = styled.span`
 const FormRowEle = ({ label, error, children }) => {
   return (
     <FormRow>
-      <Label htmlFor={children.props.id}>{label}</Label>
+      {label && <Label htmlFor={children.props.id}>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </FormRow>
